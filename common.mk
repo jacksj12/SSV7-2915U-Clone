@@ -26,7 +26,8 @@ LNK_FLAGS=--gc-sections --start-group $(strip $(LIBRARIES)) -lgcc -lstdc++ --end
 ASMFLAGS=$(MFLAGS) $(WARNFLAGS)
 CFLAGS=$(MFLAGS) $(CPPFLAGS) $(WARNFLAGS) $(GCCFLAGS) --std=gnu11
 CXXFLAGS=$(MFLAGS) $(CPPFLAGS) $(WARNFLAGS) $(GCCFLAGS) --std=gnu++17 -Wl,-V
-LDFLAGS=$(MFLAGS) $(WARNFLAGS) -nostdlib $(GCCFLAGS)
+# -wl -v flag added 
+LDFLAGS=$(MFLAGS) $(WARNFLAGS) -nostdlib $(GCCFLAGS) -Wl,-V
 SIZEFLAGS=-d --common
 NUMFMTFLAGS=--to=iec --format %.2f --suffix=B
 
