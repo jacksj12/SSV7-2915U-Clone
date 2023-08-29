@@ -4,7 +4,7 @@
       "name": "PROS Project",
       "includePath": [
         "${workspaceFolder}/**",
-        "c:\\Users\\itjus\\Documents\\robotics\\SSV7-2\\SSV7-2\\include"
+        "c:\\Users\\itjus\\Documents\\robotics\\SSV7\\include"
       ],
       "defines": [
         "_DEBUG",
@@ -15,10 +15,10 @@
       "cStandard": "c17",
       "cppStandard": "c++17",
       "intelliSenseMode": "gcc-arm",
-      "compileCommands": "c:\\Users\\itjus\\Documents\\robotics\\SSV7-2\\SSV7-2\\compile_commands.json",
+      "compileCommands": "c:\\Users\\itjus\\Documents\\robotics\\SSV7\\compile_commands.json",
       "browse": {
         "path": [
-          "c:\\Users\\itjus\\Documents\\robotics\\SSV7-2\\SSV7-2"
+          "c:\\Users\\itjus\\Documents\\robotics\\SSV7"
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""
