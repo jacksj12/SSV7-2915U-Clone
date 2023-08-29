@@ -29,7 +29,7 @@ void opcontrol(void)
         
         // Get Joysticks 
         int8_t main_left_joystick =  controller_main.get_analog(ANALOG_LEFT_Y); // AXIS 3 of controller_main.
-        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X); // AXIS 1 of controller_main.
+        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) * -1; // AXIS 1 of controller_main. Invert joystick
 
         if (main_left_joystick != 0)
         {
@@ -49,5 +49,6 @@ void opcontrol(void)
         drive_left.move_voltage((main_left_joystick - main_right_joystick) / MAX_VOLTS);
         
         pros::delay(20); // 20 ms for user based interactions
+
     }
 }

@@ -1,6 +1,7 @@
 #pragma once // Avoid multiple header links.
 #include "main.h"
 
+double squared_scaler(int8_t joystick_value, int16_t maximum);
 int8_t joystick_scaling(int8_t joystick_value);
 int8_t apply_deadzone(int8_t joystick_value, int8_t deadzone);
 int8_t cubic_scaling(int8_t joystick_value);
@@ -15,6 +16,11 @@ const int8_t MAX_SCALED_JOYSTICK    = 100;
 const int8_t MAX_ANALOG_JOYSTICK    = 127;
 
 
+// C++ sign function
+// https://stackoverflow.com/a/4609795
+template <typename T> int sgn(T val) {
+    return (T(0) < val) - (val < T(0));
+}
 
 /// @brief 
 /// @param joystick_value 
@@ -43,6 +49,11 @@ int8_t apply_deadzone(int8_t joystick_value, int8_t deadzone)
 int8_t cubic_scaling(int8_t joystick_value)
 {
     return powf(joystick_value / 12.0f, 3) * MAX_THERSHOLD;
+}
+
+double squared_scaler(int8_t joystick_value, int16_t maximum)
+{
+    return pow(joystick_value, 2) / maximum * sgn(joystick_value);
 }
 
 /// @brief 
