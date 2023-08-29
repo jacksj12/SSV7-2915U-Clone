@@ -14,6 +14,8 @@ const int8_t HORIZONTAL_DEADZONE    = 2;
 const float MAX_VOLTS               = 12000.0f;
 const int8_t MAX_SCALED_JOYSTICK    = 100;
 const int8_t MAX_ANALOG_JOYSTICK    = 127;
+const int16_t DENOMONATOR           = 127-(127);
+const int16_t MIN_MV                = -12000;
 
 
 // C++ sign function
@@ -61,5 +63,7 @@ double squared_scaler(int8_t joystick_value, int16_t maximum)
 /// @return 
 int32_t scaled_milivolts(int8_t joystick_value)
 {
-    return joystick_value / MAX_SCALED_JOYSTICK;
+    int numerator = joystick_value - (-127);
+
+    return MIN_MV + (numerator / DENOMONATOR) * 24000;
 }
