@@ -1,5 +1,4 @@
 #include "main.h"
-#include "devices.hpp"
 #include "opcontrol.hpp"
 
 // https://pros.cs.purdue.edu/v5/api/cpp/index.html
@@ -27,28 +26,31 @@ void opcontrol(void)
     while (true)
     {
         
-        // Get Joysticks 
+        // Get Joysticks.
         int8_t main_left_joystick =  controller_main.get_analog(ANALOG_LEFT_Y); // AXIS 3 of controller_main.
         int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) * -1; // AXIS 1 of controller_main. Invert joystick
 
-        if (main_left_joystick != 0)
+        // Apply deadzones to joysticks.
+        main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
+        main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
+
+        // Update the drive motors. The move method uses voltage control. So if i divide the outcome by two it should scale?
+        drive_left.move((main_left_joystick + main_right_joystick)  / 2);
+        drive_right.move((main_left_joystick - main_right_joystick) / 2);
+
+
+        if(controller_main.get_digital_new_press(DIGITAL_L1))
         {
-            main_left_joystick = joystick_scaling(main_left_joystick);
-            main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
-            main_left_joystick = cubic_scaling(main_left_joystick);
-            main_left_joystick = scaled_milivolts(main_left_joystick);
+            wing_left_toggle = !wing_left_toggle; 
+            wing_left.set_value(wing_left_toggle);
         }
-        if (main_right_joystick != 0)
+        if(controller_main.get_digital_new_press(DIGITAL_R1))
         {
-            main_right_joystick = joystick_scaling(main_right_joystick);
-            main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
-            main_right_joystick = cubic_scaling(main_right_joystick);
-            main_right_joystick = scaled_milivolts(main_right_joystick);
+            wing_right_toggle = !wing_right_toggle;
+            wing_right.set_value(wing_right_toggle);
         }
-        drive_left.move_voltage((main_left_joystick + main_right_joystick) / MAX_VOLTS);
-        drive_left.move_voltage((main_left_joystick - main_right_joystick) / MAX_VOLTS);
-        
-        pros::delay(20); // 20 ms for user based interactions
+
+        pros::delay(20); // 20 ms delay for user based interactions
 
     }
 }
