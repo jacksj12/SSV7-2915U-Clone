@@ -45,7 +45,7 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+// void competition_initialize() {}
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -58,7 +58,7 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+// void autonomous() {}
 
 /**
  * Runs the operator control code. This function will be started in its own task
