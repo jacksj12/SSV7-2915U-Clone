@@ -19,12 +19,12 @@
 pros::Controller controller_main(CONTROLLER_MASTER);    // Master Controller.
 
 // Left Drive Motors.
-pros::Motor motor_drive_1(motor_drive_1_port,   false );    // Front Left Drive Motor.
+pros::Motor motor_drive_1(motor_drive_1_port,   false);    // Front Left Drive Motor.
 pros::Motor motor_drive_2(motor_drive_2_port,   true );     // Middle Left Drive Motor.
 pros::Motor motor_drive_3(motor_drive_3_port,   false);     // Back Left Drive Motor.
 
 // Right Drive Motors.
-pros::Motor motor_drive_4(motor_drive_4_port, true);    //Front Right Drive Motor.
+pros::Motor motor_drive_4(motor_drive_4_port, true );    //Front Right Drive Motor.
 pros::Motor motor_drive_5(motor_drive_5_port, false);   // Middle Right Drive Motor.
 pros::Motor motor_drive_6(motor_drive_6_port, true );   // Back Right Drive Motor.
 
