@@ -16,6 +16,7 @@ extern int motor_drive_6_port;
 extern int wing_left_port;
 extern int wing_left_port;
 
+extern int imu_drive_port;
 // V5 Master controller 
 extern pros::Controller controller_main;
 
@@ -34,3 +35,5 @@ extern pros::Motor_Group drive_right;
 // Solonoid declaration.
 extern pros::ADIDigitalOut wing_left;
 extern pros::ADIDigitalOut wing_right;
+
+extern pros::Imu imu_drive;

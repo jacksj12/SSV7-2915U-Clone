@@ -15,6 +15,8 @@
 #define wing_left_port 'A'   // Left Pneumatic Wing Solonoid Port.
 #define wing_right_port 'B'   // Right Pneumatic Wing Solonoid Port.
 
+#define imu_drive_port 7
+
 // Controllers
 pros::Controller controller_main(CONTROLLER_MASTER);    // Master Controller.
 
@@ -38,4 +40,5 @@ pros::Motor_Group drive_right({motor_drive_4, motor_drive_5, motor_drive_6});   
 pros::ADIDigitalOut wing_left(wing_left_port, false);   // Left Pneumatic Wing Solonoid.
 pros::ADIDigitalOut wing_right(wing_right_port, false);   // Right Pneumatic Wing Solonoid.
 
-
+// IMU
+pros::Imu imu_drive(imu_drive_port);
