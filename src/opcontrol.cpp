@@ -25,18 +25,27 @@ void opcontrol(void)
 {
     while (true)
     {
-        
+        int8_t joystick_scaling_ammount = 2;    // scales the joystick inputs for the algorithim to not exceed voltage threshold.
+                                                // Allows for greater movement when only one joystick signal is active.
+
         // Get Joysticks.
         int8_t main_left_joystick =  controller_main.get_analog(ANALOG_LEFT_Y); // AXIS 3 of controller_main.
         int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) * -1; // AXIS 1 of controller_main. Invert joystick
 
-        // Apply deadzones to joysticks.
+
+
+        if (main_left_joystick == 0 || main_right_joystick == 0)
+        {
+            joystick_scaling_ammount = 1;
+        }
+
+        // Apply deadzones to Joysticks.
         main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
         main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
 
-        // Update the drive motors. The move method uses voltage control. So if i divide the outcome by two it should scale?
-        drive_left.move((main_left_joystick + main_right_joystick)  / 2);
-        drive_right.move((main_left_joystick - main_right_joystick) / 2);
+        // Update the drive motors. The move method uses voltage control.
+        drive_left.move((main_left_joystick + main_right_joystick)  / joystick_scaling_ammount);
+        drive_right.move((main_left_joystick - main_right_joystick) / joystick_scaling_ammount);
 
 
         if(controller_main.get_digital_new_press(DIGITAL_L1))
