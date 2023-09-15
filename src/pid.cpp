@@ -59,6 +59,11 @@ void PID::turn_with_gains(double angle, double new_kp, double new_kd) {
         drive_right.move_voltage(speed * 12000 * turn_direction);
     }
 }
-void PID::drive(double inches, double new_kp, double new_kd);
-double PID::get_ticks(double inches);
-void PID::reset(void);
+// void PID::drive(double inches, double new_kp, double new_kd);
+// double PID::get_ticks(double inches);
+// void PID::reset(void);
+
+
+
+
+// // print hello world
