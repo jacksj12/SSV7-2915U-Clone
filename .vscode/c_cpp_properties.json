@@ -4,21 +4,22 @@
       "name": "PROS Project",
       "includePath": [
         "${workspaceFolder}/**",
-        "c:\\Users\\itjus\\Documents\\robotics\\SSV7\\include"
+        "c:\\Users\\itjus\\Documents\\robotics\\SSV7\\include",
+        "c:\\SSv7\\include"
       ],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE"
       ],
-      "compilerPath": "c:\\Users\\itjus\\AppData\\Roaming\\Code\\User\\globalStorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\arm-none-eabi-g++",
+      "compilerPath": "C:\\Users\\Jordan DSouza\\AppData\\Local\\Programs\\PROS\\toolchain\\usr\\bin\\arm-none-eabi-g++",
       "cStandard": "c17",
       "cppStandard": "c++17",
       "intelliSenseMode": "gcc-arm",
-      "compileCommands": "c:\\Users\\itjus\\Documents\\robotics\\SSV7\\compile_commands.json",
+      "compileCommands": "c:\\SSv7\\compile_commands.json",
       "browse": {
         "path": [
-          "c:\\Users\\itjus\\Documents\\robotics\\SSV7"
+          "c:\\SSv7"
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""
