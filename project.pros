@@ -309,7 +309,9 @@
       }
     },
     "upload_options": {
-      "icon": "clawbot"
+      "icon": "clawbot",
+      "description": "Left is > Right becuase Right is < Left becuase Left is > Right becuase Right is < Left becuase Left is > Right.",
+      "slot": 1
     }
   }
 }
