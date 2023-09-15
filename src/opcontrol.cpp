@@ -15,7 +15,7 @@
  * If the robot is disabled or communications is lost, the
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
- */
+ */     
 
 void opcontrol(void)
 {
@@ -26,19 +26,19 @@ void opcontrol(void)
 
         // Get Joysticks.
         int8_t main_left_joystick = controller_main.get_analog(ANALOG_LEFT_Y);        // AXIS 3 of controller_main.
-        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) * -1; // AXIS 1 of controller_main. Invert joystick
+        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2; // AXIS 1 of controller_main. Invert joystick
 
-        // Determines the ammount of active joystick signals.
-        if (main_left_joystick == 0 || main_right_joystick == 0)
-            joystick_scaling_ammount = 1; // Sets joystick scalling constant.
+        // // Determines the ammount of active joystick signals.
+        // if (main_left_joystick == 0 || main_right_joystick == 0)
+        //     joystick_scaling_ammount = 1; // Sets joystick scalling constant.
 
-        // Apply deadzones to Joysticks.
-        main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
-        main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
+        // // Apply deadzones to Joysticks.
+        // main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
+        // main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
 
         // Update the drive motors. The move method uses voltage control.
-        drive_left.move((main_left_joystick + main_right_joystick) / joystick_scaling_ammount);
-        drive_right.move((main_left_joystick - main_right_joystick) / joystick_scaling_ammount);
+        drive_left.move((main_left_joystick + main_right_joystick) );
+        drive_right.move((main_left_joystick - main_right_joystick));
 
         // Wings Toggle.
         if (controller_main.get_digital_new_press(DIGITAL_L1))
@@ -52,6 +52,7 @@ void opcontrol(void)
             wing_right.set_value(wing_right_toggle);
         }
 
+        
         pros::delay(20); // 20 ms delay for user based interactions
     }
 }
