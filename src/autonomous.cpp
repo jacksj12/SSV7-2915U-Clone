@@ -35,7 +35,7 @@ void autonomous()
         drive_left.move(0);
         drive_right.move(0);
     }
-    else if (selector::auton == 3){
+    else{
         // do nothing.
     }
 
