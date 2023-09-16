@@ -13,5 +13,31 @@
  */
 void autonomous() 
 {
-    // selector::auton == 1:
+    if (selector::auton == 1){
+
+
+        drive_left.move(1000);
+        drive_right.move(1000);
+        pros::delay(200);
+        drive_left.move(-800);
+        drive_right.move(-800);
+        pros::delay(170);
+        drive_left.move(0);
+        drive_right.move(0);
+    }
+    else if (selector::auton == 2){
+        drive_left.move(1000);
+        drive_right.move(1000);
+        pros::delay(500);
+        drive_left.move(-300);
+        drive_right.move(-300);
+        pros::delay(200);
+        drive_left.move(0);
+        drive_right.move(0);
+    }
+    else if (selector::auton == 3){
+        // do nothing.
+    }
+
+
 }
