@@ -74,7 +74,7 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 #include "devices.hpp"
-// #include <iostream>
+#include <iostream>
 #endif
 
 #endif  // _PROS_MAIN_H_

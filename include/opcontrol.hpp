@@ -43,7 +43,7 @@ int8_t joystick_scaling(int8_t joystick_value)
 /// @return 
 int8_t apply_deadzone(int8_t joystick_value, int8_t deadzone)
 {
-      if (abs(joystick_value) <= deadzone) 
+      if (joystick_value <= deadzone) 
         {
             return 0;
         }
@@ -60,7 +60,7 @@ int8_t cubic_scaling(int8_t joystick_value)
 
 double squared_scaler(int8_t joystick_value)
 {
-    return pow(joystick_value, 2) / MAX_VOLTS * sgn(joystick_value);
+    return powf(joystick_value, 2) / MAX_VOLTS * sgn(joystick_value);
 }
 
 /// @brief 
