@@ -5,8 +5,8 @@
 
 //selector configuration
 #define HUE 360
-#define DEFAULT 1
-#define AUTONS "default", "Do Nothing"
+#define DEFAULT 2
+#define AUTONS "default", "1 ball in goal", "Nothing!"
 
 namespace selector
 {
