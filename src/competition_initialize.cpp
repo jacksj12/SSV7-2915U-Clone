@@ -12,11 +12,22 @@
 
 void competition_initialize() 
 {
-    // TODO: check that devices are installed. report to cntrl?
-    // Check that motors are installed.
-    drive_left.size();
+    
+    // https://pros.cs.purdue.edu/v5/api/cpp/motors.html#pros-motor-flag-e-t
+    for(int i=0; i < drive_left_cata.size(); i++) { 
+        int motor_flags = drive_left_cata[i].get_flags();
 
+        if(motor_flags == 0x01)
+            controller_main.rumble("............................");
+        
+    }
 
-    // init auton selector.
-    selector::init();
+    for(int i=0; i < drive_left_cata.size(); i++) {
+        int motor_flags = drive_right_cata[i].get_flags();
+
+        if (motor_flags == 0x01)
+            controller_main.rumble("............................");
+
+    }
+
 }
