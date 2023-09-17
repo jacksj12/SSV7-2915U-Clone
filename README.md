@@ -9,11 +9,12 @@ This is not important at all and I will most certainly update this as the projec
  - [ ] Find a better way to do the PTO motor group situation. Its actually crap. (opcontrol.cpp)
  - [ ] Program some autons... 
  - [ ] Test  the internal encoders. Might come in handy for PID.
- - [ ] Finish the PID!!! (pid.cpp & pid.hpp)
+ - [x] Finish the PID!!! (pid.cpp & pid.hpp)
  - [ ] Chuck an IMU somewhere?
  - [ ] Some part detected to the Cata and different launch profiles? 
  - [ ] Custom auton selector?
  - [ ] Permanent fix for the denominator / division by zero error (opcontrol.hpp)
+ - [ ] Test PID!
 ## Versions
 I might write something about this >.< 
 ## Why PROS
