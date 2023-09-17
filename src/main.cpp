@@ -22,14 +22,14 @@
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-void initialize() {
-	// pros::lcd::initialize();
-	// pros::lcd::set_text(1, "Hello PROS User!");
+// void initialize() {
+// 	// pros::lcd::initialize();
+// 	// pros::lcd::set_text(1, "Hello PROS User!");
 
-	// pros::lcd::register_btn1_cb(on_center_button);
+// 	// pros::lcd::register_btn1_cb(on_center_button);
 
 	
-}
+// }
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
