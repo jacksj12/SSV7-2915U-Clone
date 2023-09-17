@@ -1,3 +1,5 @@
+#define M_PI		3.14159265358979323846
+
 class PID{
     private:
         double target_value;
@@ -10,7 +12,7 @@ class PID{
 
         double derivative;
 
-        double speed;
+        double power;
 
         bool autonomous_end;
         bool rotation_finished;
@@ -30,3 +32,4 @@ class PID{
         void reset(void);
 
 };
+
