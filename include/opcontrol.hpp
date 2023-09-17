@@ -68,7 +68,10 @@ double squared_scaler(int8_t joystick_value)
 /// @return 
 int32_t scaled_milivolts(int8_t joystick_value)
 {
-    int numerator = joystick_value - (-127);
+    // int numerator = joystick_value - (-127);
 
+    // FIXME: denomonator is currently 0, prevent DBZ exception. 
     return MIN_MV + (numerator / DENOMONATOR) * 24000;
+
+    return 0;
 }
