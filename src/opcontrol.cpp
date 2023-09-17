@@ -25,16 +25,38 @@ void opcontrol(void)
 
         // Get Joysticks.
         int8_t main_left_joystick = controller_main.get_analog(ANALOG_LEFT_Y);        // AXIS 3 of controller_main.
-        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2; // AXIS 1 of controller_main. Invert joystick
+        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2;  // AXIS 1 of controller_main. Scalled cuz ruzi is a bad driver.
 
-        // // Apply deadzones to Joysticks.
-        // main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
-        // main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
+        // Apply deadzones to Joysticks.
+        main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
+        main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
 
-        // Update the drive motors. The move method uses voltage control.
-        drive_left.move((main_left_joystick + main_right_joystick) );
-        drive_right.move((main_left_joystick - main_right_joystick));
+        // Calculates the power for the joysticks
+        int16_t left_power = main_left_joystick + main_right_joystick;
+        int16_t right_power = main_left_joystick - main_right_joystick;
 
+
+        // Sets and toggles the PTO solonoid state.
+        if (controller_main.get_digital_new_press(DIGITAL_A)) {
+            pto_enable = ! pto_enable;
+            pto_cata.set_value(pto_enable);
+        }
+        
+        // FIXME: This is ugly.. 
+        // Update the drive motors. The move method uses voltage control. Determines which motor_group to use. Its Ugly ik.
+        // when enable, PTO is connected to drive
+        if(pto_enable){
+            drive_left_cata.move(left_power);
+            drive_right_cata.move(right_power);
+        }
+        // PTO is conntected to cata
+        else {
+            drive_left.move(left_power);
+            drive_right.move(right_power);
+
+        }
+
+ 
         // Wings Toggle.
         if (controller_main.get_digital_new_press(DIGITAL_L1))
         {
@@ -48,6 +70,6 @@ void opcontrol(void)
         }
 
         
-        pros::delay(20); // 20 ms delay for user based interactions
+        pros::delay(10); // 10 ms delay for user based interactions
     }
 }
