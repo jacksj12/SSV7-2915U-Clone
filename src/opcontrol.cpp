@@ -2,6 +2,7 @@
 #include "opcontrol.hpp"
 
 // https://pros.cs.purdue.edu/v5/api/cpp/index.html
+// https://github.com/purduesigbots/pros-docs/tree/e2b268679b89ea566b35a43bcf2e4f8b3248656b/v5/api/cpp
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -21,16 +22,10 @@ void opcontrol(void)
 {
     while (true)
     {
-        int8_t joystick_scaling_ammount = 2; // scales the joystick inputs for the algorithim to not exceed voltage threshold.
-                                             // Allows for greater movement when only one joystick signal is active.
 
         // Get Joysticks.
         int8_t main_left_joystick = controller_main.get_analog(ANALOG_LEFT_Y);        // AXIS 3 of controller_main.
         int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2; // AXIS 1 of controller_main. Invert joystick
-
-        // // Determines the ammount of active joystick signals.
-        // if (main_left_joystick == 0 || main_right_joystick == 0)
-        //     joystick_scaling_ammount = 1; // Sets joystick scalling constant.
 
         // // Apply deadzones to Joysticks.
         // main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
