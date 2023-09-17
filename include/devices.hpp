@@ -32,8 +32,12 @@ extern pros::Motor motor_drive_6;
 extern pros::Motor_Group drive_left;
 extern pros::Motor_Group drive_right;
 
+extern pros::Motor_Group drive_left_cata;
+extern pros::Motor_Group drive_right_cata;
+
 // Solonoid declaration.
 extern pros::ADIDigitalOut wing_left;
 extern pros::ADIDigitalOut wing_right;
+extern pros::ADIDigitalOut pto_cata;
 
 extern pros::Imu imu_drive;

@@ -42,10 +42,11 @@ pros::Motor motor_drive_8(motor_drive_8_port,   true );       // Back PTO Right 
 
 
 // Drive Motor Groups.
-pros::Motor_Group drive_left ({motor_drive_1, motor_drive_2, motor_drive_3, motor_drive_4});   // Left Drive Motor Group.
-pros::Motor_Group drive_right({motor_drive_5, motor_drive_6, motor_drive_7, motor_drive_8});   // Right Drive Motor Group.
+pros::Motor_Group drive_left_cata   ({motor_drive_1, motor_drive_2, motor_drive_3, motor_drive_4});     // Left Drive Motor Group with cata motors.
+pros::Motor_Group drive_right_cata  ({motor_drive_5, motor_drive_6, motor_drive_7, motor_drive_8});     // Right Drive Motor Group with cata motors.
 
-
+pros::Motor_Group drive_left        ({motor_drive_1, motor_drive_2, motor_drive_3});                    // Left Drive Motor Group 
+pros::Motor_Group drive_right       ({motor_drive_5, motor_drive_6, motor_drive_7});                    // Right Drive Motor Group
 // Solonoids
 pros::ADIDigitalOut wing_left(wing_left_port, true);   // Left Pneumatic Wing Solonoid.
 pros::ADIDigitalOut wing_right(wing_right_port, false);   // Right Pneumatic Wing Solonoid.
