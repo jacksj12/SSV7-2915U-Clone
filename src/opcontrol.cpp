@@ -31,6 +31,8 @@ void opcontrol(void)
         main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
         main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
 
+
+        // TODO: Try joystick curving?
         // Calculates the power for the joysticks
         int16_t left_power = main_left_joystick + main_right_joystick;
         int16_t right_power = main_left_joystick - main_right_joystick;
