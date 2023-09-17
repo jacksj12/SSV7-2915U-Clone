@@ -14,7 +14,7 @@ const int8_t HORIZONTAL_DEADZONE    = 2;
 const float MAX_VOLTS               = 12000.0f;
 const int8_t MAX_SCALED_JOYSTICK    = 100;
 const int8_t MAX_ANALOG_JOYSTICK    = 127;
-const int16_t DENOMONATOR           = 127-(127);
+const int16_t DENOMONATOR           = 10;   // temp!! forgot how this works!
 const int16_t MIN_MV                = -12000;
 const double VOLTAGE_DRIVE          = 12000.0f / 127.0f;
 int16_t drive_left_voltage;
@@ -22,6 +22,8 @@ int16_t drive_right_voltage;
 
 bool wing_left_toggle               = false;
 bool wing_right_toggle              = true;
+
+bool pto_enable                     = false;
 
 // C++ sign function
 // https://stackoverflow.com/a/4609795
@@ -68,7 +70,7 @@ double squared_scaler(int8_t joystick_value)
 /// @return 
 int32_t scaled_milivolts(int8_t joystick_value)
 {
-    // int numerator = joystick_value - (-127);
+    int numerator = joystick_value - (-127);
 
     // FIXME: denomonator is currently 0, prevent DBZ exception. 
     return MIN_MV + (numerator / DENOMONATOR) * 24000;
