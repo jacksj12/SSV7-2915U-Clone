@@ -17,3 +17,5 @@ temp.errors
 .d/
 *.bin
 *.elf
+/src/jouzaLib
+/include/jouzaLib
