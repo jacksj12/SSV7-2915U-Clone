@@ -17,7 +17,7 @@ This is not important at all and I will most certainly update this as the projec
 ## Versions
 I might write something about this >.< 
 ## Why PROS
-I decided mid-way through SSV6, that VEXCode, while completely applicable wasn't the best choice available. Actually, I had been meaning to migrate to PROS earlier due to the extensive "documentation" the PROS team have graciously made for us.  But due to my laptop being actually terrible I never used it because I thought the only way to use PROS was via the VSCode extension which really never worked. But once I got the CLI up and running, it was relatively smooth Saling. 
+I decided mid-way through SSV6, that VEXCode, while completely applicable wasn't the best choice available. Actually, I had been meaning to migrate to PROS earlier due to the extensive "documentation" the PROS team have graciously made for us.  But due to my laptop being actually terrible I never used it because I thought the only way to use PROS was via the VSCode extension which really never worked. But once I got the CLI up and running, it was relatively smooth sailing. 
 
 ## My Workflow
 I mainly operate between two machines, my desktop computer which I can open up an RDP pretty much anytime (but for whatever reason exception events 🙃). But majority of the work would be done through my Lenovo Ideapad-330s 15-AST, which was holding on for literally dear life. On this machine I would daily drive both Windows 10, and Fedora 37. Which meant I was constantly switching between the two. This meant I needed some sort of system which would make it easy to transfer contents between each other. 
