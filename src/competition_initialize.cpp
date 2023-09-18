@@ -14,20 +14,30 @@ void competition_initialize()
 {
     
     // https://pros.cs.purdue.edu/v5/api/cpp/motors.html#pros-motor-flag-e-t
-    for(int i=0; i < drive_left_cata.size(); i++) { 
-        int motor_flags = drive_left_cata[i].get_flags();
 
-        if(motor_flags == 0x01)
-            controller_main.rumble("............................");
+    
+    // When no device connected - Prog brain. "2147483647"
+    for(int i=0; i < drive_left_cata.size(); i++) { 
+        std::uint32_t motor_flags = drive_left_cata[i].get_flags();
         
+        // FIXME: further testing required! 
+        //it says to use pros::motor_flag_e_t::E_MOTOR_FLAGS_BUSY,
+        // but it seems like it doesn't work X_X use a l-value instead.
+        if(motor_flags == 2147483647) {
+            std::cout << "Motor Disconected!" << "\n";
+            controller_main.rumble("............................");
+            break;
+        }
     }
 
     for(int i=0; i < drive_left_cata.size(); i++) {
-        int motor_flags = drive_right_cata[i].get_flags();
+        std::uint32_t motor_flags = drive_right_cata[i].get_flags();
 
-        if (motor_flags == 0x01)
+        if(motor_flags == 2147483647) {
+            std::cout << "Motor Disconected!" << "\n";
             controller_main.rumble("............................");
-
+            break;
+        }
     }
 
 }
