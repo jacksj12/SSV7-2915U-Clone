@@ -1,5 +1,6 @@
 #define M_PI		3.14159265358979323846
-
+double get_drive_encoders(void);
+double get_ticks(double inches);
 class PID{
     private:
         double target_value;
