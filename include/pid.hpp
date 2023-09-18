@@ -29,7 +29,6 @@ class PID{
         double get_error(void);
         void turn_with_gains(double angle, double new_kp, double new_kd);
         void drive(double inches, double new_kp, double new_kd);
-        double get_ticks(double inches);
         void reset(void);
 
 };
