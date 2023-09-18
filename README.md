@@ -3,6 +3,8 @@ The official Repo for Soft Serve V7 | VRC 2915U
 
 This program uses the VEX Robotics V5 Platform, made with Purdue ACM SIGBots PROS, (Kernel 3.8.0, CLI 3.4.3).
 
+Na but fr, every time I fix something I swear somthing else breaks. #spaghettiCodeGang
+
 ## TODO!
 This is not important at all and I will most certainly update this as the project continues. (not a chance)
  - [ ] Add Joystick curving due to high speed. Allows for a significant amount of choice for the driver and the ability to change profile(s) at a fly. (opcontrol.cpp)
