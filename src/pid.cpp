@@ -101,6 +101,7 @@ void PID::drive(double inches, double new_kp, double new_kd) {
 }
 
 
+
 double get_drive_encoders(void){
     // set encoder units to degrees.
     drive_left_cata.set_encoder_units (pros::E_MOTOR_ENCODER_DEGREES);
@@ -119,9 +120,7 @@ double get_ticks(double inches){
     return 360 / (4.125 * M_PI) * inches;
 }
 
-double PID::get_error(void) { 
-  return error; 
-}
+
 void PID::reset(void) {
     kp = last_kp;
     kd = last_kd;
