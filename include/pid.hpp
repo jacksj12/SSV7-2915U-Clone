@@ -1,35 +1,53 @@
 #define M_PI		3.14159265358979323846
+
+// type safe sgn (sign) function
+// https://stackoverflow.com/a/4609795
+template <typename T> int sgn(T val) { 
+  return (T(0) < val) - (val < T(0)); 
+}
+
+
 double get_drive_encoders(void);
 double get_ticks(double inches);
 class PID{
     private:
-        double target_value;
+        double target_ticks         = 0;
+        double target_distance      = 0;
+        double error                = 0;
+        double kp                   = 0;
+        double ki                   = 0;
+        double kd                   = 0;
+        double start_i              = 0;
+        double settle_error         = 0;
+        double settle_time          = 0;
+        double timeout              = 0;
+        double accumulated_error    = 0;
+        double previous_error       = 0;
+        double output               = 0;
+        double time_waiting         = 0;
+        double time_spent_running   = 0;
 
-        double current_heading;
-        double sensor_reading;
-
-        double error;
-        double previous_error;
-
-        double derivative;
-
-        double power;
-
-        bool autonomous_end;
-        bool rotation_finished;
 
     public:
-        double kp;
-        double kd;
+        /// @brief Consturctor for the PID.
+        /// @param error 
+        /// @param kp 
+        /// @param ki 
+        /// @param kd 
+        /// @param starti 
+        /// @param settle_time 
+        /// @param timeout 
+        PID(double error, double kp, double ki, double kd, double start_i, double settle_time, double timeout);
+        PID(double error, double kp, double ki, double kd, double start_i);
 
-        double last_kp;
-        double last_kd;
+        double calculate(double target_ticks, double sensor_reading);
+        bool is_settled();
 
-        double get_PID(double targetValue, double sensorReading);
-        double get_error(void);
-        void turn_with_gains(double angle, double new_kp, double new_kd);
-        void drive(double inches, double new_kp, double new_kd);
-        void reset(void);
+        void set_drive(double inches, double kp, double ki, double kd, double start_i, double settle_time, double timeout);
+        void set_drive(double inches, double kp, double ki, double kd, double start_i);
 
+        // Defined turning function for readability.
+        void set_turning(double angle, double kp, double ki, double kd, double start_i, double settle_time, double timeout);
+        void set_turning(double angle, double kp, double ki, double kd, double start_i);
 };
 
