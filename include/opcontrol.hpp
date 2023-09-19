@@ -39,10 +39,12 @@ int8_t joystick_scaling(int8_t joystick_value)
     return joystick_value / MAX_ANALOG_JOYSTICK * MAX_SCALED_JOYSTICK;
 }
 
-/// @brief 
-/// @param joystick_value 
-/// @param deadzone 
-/// @return 
+/// @brief Determines wether to apply a deadzone to a joystick.
+///        If the joystick value is below the deadzone, the function will act.
+/// @param joystick_value The value of the joystick -127 to 127.
+/// @param deadzone The upper value for the deadzone. 
+/// @returns Returns zero if the joystick < the deadzone OR
+/// @returns Returns the joystick value.
 int8_t apply_deadzone(int8_t joystick_value, int8_t deadzone)
 {
       if (joystick_value <= deadzone) 
