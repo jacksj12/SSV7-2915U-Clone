@@ -19,7 +19,12 @@ PID::PID(double error, double kp, double ki, double kd, double start_i, double s
     this->timeout           = timeout;
 }
 
-
+/// @brief 
+/// @param error 
+/// @param kp 
+/// @param ki 
+/// @param kd 
+/// @param start_i 
 PID::PID (double error, double kp, double ki, double kd, double start_i ) {
     this->error             = error;
     this->kp                = kp;
@@ -28,6 +33,10 @@ PID::PID (double error, double kp, double ki, double kd, double start_i ) {
     this->start_i           = start_i;
 }
 
+/// @brief 
+/// @param target_ticks 
+/// @param sensor_reading 
+/// @return 
 double PID::calculate(double target_ticks, double sensor_reading) {
     if (fabs(error) < start_i) 
         accumulated_error += error;
@@ -47,7 +56,18 @@ double PID::calculate(double target_ticks, double sensor_reading) {
     return output;
 }
 
-
+/// @brief 
+/// @param  
+/// @return 
+bool PID::is_settled(void) {
+    if (time_spent_running > timeout && timeout != 0) 
+        return true;
+    
+    if (time_waiting > settle_time)
+        return true;
+    
+    return false;
+}
 // double PID::calculate_pid(double targetValue, double sensorReading){
 //     error = target_value - sensor_reading; // calculates the distance between target and current robot.
 

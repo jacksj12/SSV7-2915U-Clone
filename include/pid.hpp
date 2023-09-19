@@ -29,19 +29,11 @@ class PID{
 
 
     public:
-        /// @brief Consturctor for the PID.
-        /// @param error 
-        /// @param kp 
-        /// @param ki 
-        /// @param kd 
-        /// @param starti 
-        /// @param settle_time 
-        /// @param timeout 
         PID(double error, double kp, double ki, double kd, double start_i, double settle_time, double timeout);
         PID(double error, double kp, double ki, double kd, double start_i);
 
         double calculate(double target_ticks, double sensor_reading);
-        bool is_settled();
+        bool is_settled(void);
 
         void set_drive(double inches, double kp, double ki, double kd, double start_i, double settle_time, double timeout);
         void set_drive(double inches, double kp, double ki, double kd, double start_i);
