@@ -16,7 +16,9 @@ This is not important at all and I will most certainly update this as the projec
  - [ ] Custom auton selector?
  - [ ] Permanent fix for the denominator / division by zero error (opcontrol.hpp)
  - [ ] Test PID!
+ - [ ] Rewrite the PID to include an intergral and settling time.
  - [x] Finish the PID!!! (pid.cpp & pid.hpp)
+
 ## Versions
 I might write something about this >.< 
 ## Why PROS
