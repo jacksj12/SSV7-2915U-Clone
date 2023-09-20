@@ -38,6 +38,8 @@ PID::PID (double error, double kp, double ki, double kd, double start_i ) {
 /// @param sensor_reading 
 /// @return 
 double PID::calculate(double target_ticks, double sensor_reading) {
+    error = target_ticks - sensor_reading;
+
     if (fabs(error) < start_i) 
         accumulated_error += error;
 
@@ -68,6 +70,19 @@ bool PID::is_settled(void) {
     
     return false;
 }
+
+void PID::drive_with_IMU(double target_distance, PID &rot_obj, int timeout) {
+    while (true) {
+        double main_power = calculate(get_drive_encoders());
+        double imu_adjustment_power = calculate (rot_obj.calculate())
+    }
+}
+
+
+// int PID::get_encoders(void) {
+//     return // encoders values + averages!
+// }
+
 // double PID::calculate_pid(double targetValue, double sensorReading){
 //     error = target_value - sensor_reading; // calculates the distance between target and current robot.
 

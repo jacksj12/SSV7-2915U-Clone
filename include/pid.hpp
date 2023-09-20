@@ -7,7 +7,9 @@ template <typename T> int sgn(T val) {
 }
 
 
-double get_drive_encoders(void);
+double get_drive_encoders(void); // TODO: maybe do this? 
+
+
 double get_ticks(double inches);
 class PID{
     private:
@@ -41,5 +43,7 @@ class PID{
         // Defined turning function for readability.
         void set_turning(double angle, double kp, double ki, double kd, double start_i, double settle_time, double timeout);
         void set_turning(double angle, double kp, double ki, double kd, double start_i);
+
+        void PID::drive_with_IMU(double target_distance, PID &rot_obj, int timeout);
 };
 
