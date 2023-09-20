@@ -56,7 +56,6 @@ void opcontrol(void)
         else {
             drive_left.move(left_power);
             drive_right.move(right_power);
-
         }
 
  
@@ -72,7 +71,6 @@ void opcontrol(void)
             wing_right.set_value(wing_right_toggle);
         }
 
-        
         pros::delay(10); // 10 ms delay for user based interactions
     }
 }
