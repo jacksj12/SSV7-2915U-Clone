@@ -27,6 +27,8 @@ extern pros::Motor motor_drive_3;
 extern pros::Motor motor_drive_4;
 extern pros::Motor motor_drive_5;
 extern pros::Motor motor_drive_6;
+extern pros::Motor motor_drive_7;
+extern pros::Motor motor_drive_8;
 
 // Drive Motor Group Decleration
 extern pros::Motor_Group drive_left;
