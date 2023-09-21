@@ -7,7 +7,7 @@ template <typename T> int sgn(T val) {
 }
 
 
-double get_drive_encoders(void); // TODO: maybe do this? 
+double get_encoders(void);
 
 
 double get_ticks(double inches);
