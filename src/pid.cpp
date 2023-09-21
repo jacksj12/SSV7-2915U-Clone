@@ -81,11 +81,17 @@ void PID::drive_with_IMU(double target_distance, PID &rot_obj, int timeout) {
     while(true) {
         double main_power = calculate(target_ticks, get_encoders());
         // Drive at heading 0deg. returns the power to adjust the drive to do so.
-        double imu_adjustment_power = calculate (rot_obj.calculate(0, imu_drive.get_heading()));
+        double imu_adjustment_power = calculate (target_ticks, rot_obj.calculate(0, imu_drive.get_heading()));
 
         drive_left_cata.move_voltage((main_power + imu_adjustment_power) * 1200 * dir);
         drive_right_cata.move_voltage((main_power - imu_adjustment_power) * 1200 * dir);
 
+        // Sets a stopping range.
+        if(error < 0.8 && dir == 1 || error > -0.8 && dir == -1) {
+            drive_left_cata.move_voltage(0);
+            drive_right_cata.move_voltage(0);
+            return;
+        }
         pros::delay(10); // The IMU might update every 20ms. Might want to change this.
     }
 }
