@@ -38,6 +38,14 @@ void opcontrol(void)
         int16_t left_power = main_left_joystick + main_right_joystick;
         int16_t right_power = main_left_joystick - main_right_joystick;
 
+        // if the value overflows, scale it so that the user can still turn. May cause unexpected results.
+        if (left_power > 127)
+            left_power = main_left_joystick / 2 + main_right_joystick;
+        
+        // if the value overflows, scale it so that the user can still turn. May cause unexpected results.
+        if (right_power < -127) 
+            right_power = main_left_joystick / 2 + main_right_joystick;
+
 
         // Sets and toggles the PTO solonoid state.
         if (controller_main.get_digital_new_press(DIGITAL_A)) {
