@@ -75,29 +75,35 @@ bool PID::is_settled(void) {
 void PID::drive_with_IMU(double target_distance, PID &rot_obj, int timeout) {
 
     int dir = sgn(target_distance);
-    while (true) {
-        double main_power = calculate(get_drive_encoders());
+
+    target_ticks = 360 / (4.125 * M_PI);
+
+    while(true) {
+        double main_power = calculate(target_ticks, get_encoders());
         // Drive at heading 0deg. returns the power to adjust the drive to do so.
         double imu_adjustment_power = calculate (rot_obj.calculate(0, imu_drive.get_heading()));
 
-        drive_left_cata.move_voltage((main_power + imu_adjustment_power) * 1200 * dir); 
-        drive_right_cata.move_voltage((main_power - imu_adjustment_power) * 1200 * dir);  
+        drive_left_cata.move_voltage((main_power + imu_adjustment_power) * 1200 * dir);
+        drive_right_cata.move_voltage((main_power - imu_adjustment_power) * 1200 * dir);
 
         pros::delay(10); // The IMU might update every 20ms. Might want to change this.
     }
 }
 
 
-double PID::get_encoders(void) {
+double get_encoders(void) {
     // Get averages for the encoders. 
-    double left_encoders_averages = (motor_drive_2.get_position(E_MOTOR_ENCODER_DEGREES) + motor_drive_3.get_position(E_MOTOR_ENCODER_DEGREES)) / 2;
+    double left_encoders_averages = (motor_drive_2.get_position() + motor_drive_3.get_position()) / 2;
 
-    double right_encoders_averages = motor_drive_6.get_position(E_MOTOR_ENCODER_DEGREES) + motor_drive_7.get_position(E_MOTOR_ENCODER_DEGREES) / 2;
+    double right_encoders_averages = motor_drive_6.get_position() + motor_drive_7.get_position() / 2;
 
     // Return encoders.
-    return left_encoders + right_encoders / 2;
+    return left_encoders_averages + left_encoders_averages / 2;
 }
 
+double get_ticks(double inches) {
+    return 360 / (4.125 * M_PI);
+}
 
 
 
