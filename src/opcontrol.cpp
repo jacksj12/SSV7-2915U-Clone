@@ -56,6 +56,9 @@ void opcontrol(void)
         // FIXME: This is ugly.. 
         // Update the drive motors. The move method uses voltage control. Determines which motor_group to use. Its Ugly ik.
         // when enable, PTO is connected to drive
+
+        // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/include/pros/motors.hpp#L861C4-L861C4
+        // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/src/devices/vdml_motors.cpp#L337
         if(pto_enable){
             drive_left_cata.move(left_power);
             drive_right_cata.move(right_power);
