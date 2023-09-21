@@ -38,6 +38,7 @@ PID::PID (double error, double kp, double ki, double kd, double start_i ) {
 /// @param sensor_reading 
 /// @return 
 double PID::calculate(double target_ticks, double sensor_reading) {
+    // calculate the error.
     error = target_ticks - sensor_reading;
 
     if (fabs(error) < start_i) 
@@ -72,16 +73,33 @@ bool PID::is_settled(void) {
 }
 
 void PID::drive_with_IMU(double target_distance, PID &rot_obj, int timeout) {
+
+    int dir = sgn(target_distance);
     while (true) {
         double main_power = calculate(get_drive_encoders());
-        double imu_adjustment_power = calculate (rot_obj.calculate())
+        // Drive at heading 0deg. returns the power to adjust the drive to do so.
+        double imu_adjustment_power = calculate (rot_obj.calculate(0, imu_drive.get_heading()));
+
+        drive_left_cata.move_voltage((main_power + imu_adjustment_power) * 1200 * dir); 
+        drive_right_cata.move_voltage((main_power - imu_adjustment_power) * 1200 * dir);  
+
+        pros::delay(10); // The IMU might update every 20ms. Might want to change this.
     }
 }
 
 
-// int PID::get_encoders(void) {
-//     return // encoders values + averages!
-// }
+double PID::get_encoders(void) {
+    // Get averages for the encoders. 
+    double left_encoders_averages = (motor_drive_2.get_position(E_MOTOR_ENCODER_DEGREES) + motor_drive_3.get_position(E_MOTOR_ENCODER_DEGREES)) / 2;
+
+    double right_encoders_averages = motor_drive_6.get_position(E_MOTOR_ENCODER_DEGREES) + motor_drive_7.get_position(E_MOTOR_ENCODER_DEGREES) / 2;
+
+    // Return encoders.
+    return left_encoders + right_encoders / 2;
+}
+
+
+
 
 // double PID::calculate_pid(double targetValue, double sensorReading){
 //     error = target_value - sensor_reading; // calculates the distance between target and current robot.
