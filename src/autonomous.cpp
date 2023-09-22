@@ -1,5 +1,5 @@
 #include "main.h"
-#include "pid.hpp"
+// #include "pid.hpp"
 #include "autoSelect/selection.h"
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -14,7 +14,7 @@
  */
 void autonomous() 
 {
-    PID chassis;
+    // PID chassis;
     if (selector::auton == 1){
 
 
@@ -37,9 +37,10 @@ void autonomous()
         drive_left.move(0);
         drive_right.move(0);
     }
-    else if (selector::auton == 3){
-        chassis.drive(3,1,1);
-    }
+    // else if (selector::auton == 3){
+    //     // chassis.drive(3,1,1);
+        
+    // }
 
 
 }

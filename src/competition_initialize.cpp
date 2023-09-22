@@ -15,7 +15,7 @@ void competition_initialize()
     
     // https://pros.cs.purdue.edu/v5/api/cpp/motors.html#pros-motor-flag-e-t
 
-    pros::c::registry_get_plugged_type();
+    // pros::c::registry_get_plugged_type();
 
 /*
     v5_device_e_t registry_get_plugged_type(uint8_t port) {
@@ -25,7 +25,7 @@ void competition_initialize()
         }
 	    return registry_types[port];
     }
-*/
+*/  
     
     // When no device connected - Prog brain. "2147483647"
     for(int i=0; i < drive_left_cata.size(); i++) { 
