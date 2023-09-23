@@ -58,6 +58,10 @@ void opcontrol(void)
 
         // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/include/pros/motors.hpp#L861C4-L861C4
         // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/src/devices/vdml_motors.cpp#L337
+        // drive_left_cata.move(700);
+        
+        
+        
         if(pto_enable){
             drive_left_cata.move(left_power);
             drive_right_cata.move(right_power);

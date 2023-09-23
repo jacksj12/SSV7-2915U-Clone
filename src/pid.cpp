@@ -175,6 +175,9 @@ void PID::set_turning(double angle, double kp, double ki, double kd, double star
 }
 
 
+// double get_encoders(void) {
+//     // Get averages for the encoders. 
+//     double left_encoders_averages = motor_drive_2.get_position() + motor_drive_3.get_position() / 2;
 
 /// @brief Resets the values of lonely variables.
 void PID::reset(void) {
@@ -187,4 +190,4 @@ void PID::reset(void) {
 
 
 
-// // print hello world - youtube.com/@2915Z
+// // // print hello world - youtube.com/@2915Z
