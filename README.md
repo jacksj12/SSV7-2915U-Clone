@@ -6,17 +6,18 @@ This program uses the VEX Robotics V5 Platform, made with Purdue ACM SIGBots PRO
 Na but fr, every time I fix something I swear somthing else breaks. #spaghettiCodeGang
 
 ## TODO!
-This is not important at all and I will most certainly update this as the project continues. (not a chance)
+This is not important at all and I will most certainly update this as the project continues. (not a chance).
  - [ ] Add Joystick curving due to high speed. Allows for a significant amount of choice for the driver and the ability to change profile(s) at a fly. (opcontrol.cpp)
+ - [ ] Add PID during endgame to balance on the middle bar. (opcontrol.cpp)
  - [ ] Find a better way to do the PTO motor group situation. Its actually crap. (opcontrol.cpp)
  - [ ] Program some autons... 
  - [ ] Test  the internal encoders. Might come in handy for PID.
- - [ ] Chuck an IMU somewhere?
  - [ ] Some part detected to the Cata and different launch profiles? 
- - [ ] Custom auton selector?
+ - [ ] Custom auton selector? - Have one for both auton sides.
  - [ ] Permanent fix for the denominator / division by zero error (opcontrol.hpp)
  - [ ] Test PID!
- - [ ] Rewrite the PID to include an intergral and settling time.
+ - [x] Chuck an IMU somewhere?
+ - [x] Rewrite the PID to include an intergral and settling time.
  - [x] Finish the PID!!! (pid.cpp & pid.hpp)
 
 ## Versions
