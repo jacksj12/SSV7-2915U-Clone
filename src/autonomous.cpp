@@ -15,6 +15,7 @@
 void autonomous() 
 {
     PID chassis;
+    PID rotation; // A second instance of PID for the imu turning. Should deprecate?
     if (selector::auton == 1){
 
 
@@ -38,7 +39,7 @@ void autonomous()
         drive_right.move(0);
     }
     else if (selector::auton == 3){
-        chassis.drive(3,1,1);
+        chassis.drive(rotation, 5, 0.1,0.1,0.1,10,2,0.2,3);
     }
 
 
