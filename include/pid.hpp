@@ -8,10 +8,11 @@ template <typename T> int sgn(T val) {
 }
 
 
-double get_encoders(void);
 
 
-double get_ticks(double inches);
+
+/// @brief The PID class implements a Proportional-Integral-Derivative (PID) controller used for control systems.
+///        It calculates the power to be applied to motors in order to achieve a desired target or maintain a specific orientation.
 class PID{
     private:
         double target_ticks         = 0; // The target distance of inches converted to encoder ticks.
@@ -32,13 +33,15 @@ class PID{
 
         int16_t current_heading     = 0; // The current heading of the robot. So we don't have to reset the imu every time we need to use it.
         int8_t direction            = 1; // The turning direction. Either 1 or -1.
-
+        
+        double get_encoders(void);
+        double get_ticks(double inches);
         double calculate(double target, double sensor_reading);
         bool is_settled(void);
         void reset(void);
     public:
         
-        void set_turning(double angle, double kp, double ki, double kd, double start_i, double settle_time, double settle_error, double timeout);
+        void turn(double angle, double kp, double ki, double kd, double start_i, double settle_time, double settle_error, double timeout);
 
         void drive(PID &rot_obj, double target_distance, double kp, double ki, double kd, double start_i, double settle_time, double settle_error, double timeout);
 };

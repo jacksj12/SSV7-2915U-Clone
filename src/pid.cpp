@@ -1,6 +1,7 @@
 #include "pid.hpp"
 #include "main.h"
 
+// // // print hello world - youtube.com/@2915Z
 
 /// @brief Calculates the PID.
 /// @param target The target where the robot needs to be.
@@ -55,7 +56,7 @@ bool PID::is_settled(void) {
 
 /// @brief Calculates the value of a v5 Internal Motor Encoders.
 /// @return An average of both sides of the drive using the v5 internal motor encoders.
-double get_encoders(void) {
+double PID::get_encoders(void) {
     // Get averages for the left encoders. 
     double left_encoders_averages = (motor_drive_2.get_position() + motor_drive_3.get_position()) / 2;
 
@@ -69,7 +70,7 @@ double get_encoders(void) {
 /// @brief Calculates the distance of the robot in ticks.
 /// @param inches The distance to the target - in inches.
 /// @return The distance to the target - in ticks.
-double get_ticks(double inches) {
+double PID::get_ticks(double inches) {
     return 360 / (4.125 * M_PI);
 }
 
@@ -134,7 +135,7 @@ void PID::drive(PID &rot_obj, double target_distance, double kp, double ki, doub
 /// @param settle_time The ammount of time the robot has to be in a settle zone to be considered fully settled.
 /// @param settle_error The ammount of displacement the robot has to be in to have the chance to be considered settled.
 /// @param timeout The ammount of time for a given run.
-void PID::set_turning(double angle, double kp, double ki, double kd, double start_i, double settle_time, double settle_error, double timeout) {
+void PID::turn(double angle, double kp, double ki, double kd, double start_i, double settle_time, double settle_error, double timeout) {
     // Set PID values.
     this->kp = kp;
     this->ki = ki;
@@ -186,8 +187,3 @@ void PID::reset(void) {
     accumulated_error   = 0;
     previous_error      = 0;
 }
-
-
-
-
-// // // print hello world - youtube.com/@2915Z
