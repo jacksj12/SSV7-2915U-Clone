@@ -16,15 +16,19 @@ void autonomous()
 {
     PID chassis;
     PID rotation; // A second instance of PID for the imu turning. Should deprecate?
+
+    // Alliance triball in goal.
     if (selector::auton == 1){
 
-
+        // Push triball in goal for 200ms.
         drive_left.move(1000);
         drive_right.move(1000);
         pros::delay(200);
+        // Move away from the goal for 170ms.
         drive_left.move(-800);
         drive_right.move(-800);
         pros::delay(170);
+        // HAULT.
         drive_left.move(0);
         drive_right.move(0);
     }
