@@ -23,7 +23,6 @@ void opcontrol(void)
 
     while (true)
     {
-
         // Get Joysticks.
         int8_t main_left_joystick = controller_main.get_analog(ANALOG_LEFT_Y);        // AXIS 3 of controller_main.
         int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2;  // AXIS 1 of controller_main. Scalled cuz ruzi is a bad driver.
