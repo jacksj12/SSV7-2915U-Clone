@@ -28,7 +28,7 @@ while True:
     if joystick_1_check and joystick_2_check:
         
         joystick_1_value: int = int(joystick_input_1)
-        joystick_2_value: int = int(joystick_input_2)
+        joystick_2_value: int = int(joystick_input_2) / 2
 
 
         # numerator = joystick_value-(-127) 
@@ -44,19 +44,28 @@ while True:
         # cubic_scaling: float = pow(joystick_value / 100, 3) * MAX_THERSHOLD
         # print(f"Cubic scalling {cubic_scaling}")
 
-        drive_left_voltage =  (joystick_1_value + joystick_2_value) / 2
-        drive_right_voltage = (joystick_1_value - joystick_2_value) / 2
+        drive_left_voltage =  (joystick_1_value + joystick_2_value)
+        drive_right_voltage = (joystick_1_value - joystick_2_value)
+
+        # if the value overflows, scale it so that the user can still turn. May cause unexpected results.
+        if (abs(drive_left_voltage) > 127):
+            drive_left_voltage = joystick_1_value / 2 + joystick_2_value
+        
+        # if the value overflows, scale it so that the user can still turn. May cause unexpected results.
+        if abs(drive_right_voltage > 127):
+            drive_right_voltage = joystick_1_value / 2 - joystick_2_value
+
 
         print(f"Drive Voltage {drive_left_voltage}\t {drive_right_voltage}")
 
-        cubed_joystick_1: float = cubic_scaler(joystick_1_value)
-        cubed_joystick_2: float = cubic_scaler(joystick_2_value)
-        print(f"cubed scalling {cubed_joystick_1}\t {cubed_joystick_2}")
+        # cubed_joystick_1: float = cubic_scaler(joystick_1_value)
+        # cubed_joystick_2: float = cubic_scaler(joystick_2_value)
+        # print(f"cubed scalling {cubed_joystick_1}\t {cubed_joystick_2}")
 
 
-        left: float = squared_scaling(joystick_1_value + joystick_2_value)
-        right: float = squared_scaling(joystick_1_value - joystick_2_value)
-        print(f"Drive squared {left}\t {right}")
+        # left: float = squared_scaling(joystick_1_value + joystick_2_value)
+        # right: float = squared_scaling(joystick_1_value - joystick_2_value)
+        # print(f"Drive squared {left}\t {right}")
 
     continue
 
