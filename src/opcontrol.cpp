@@ -37,15 +37,6 @@ void opcontrol(void)
         int16_t left_power = main_left_joystick + main_right_joystick;
         int16_t right_power = main_left_joystick - main_right_joystick;
 
-        // if the value overflows, scale it so that the user can still turn. May cause unexpected results.
-        if (left_power > 127)
-            left_power = main_left_joystick / 2 + main_right_joystick;
-        
-        // if the value overflows, scale it so that the user can still turn. May cause unexpected results.
-        if (right_power < -127) 
-            right_power = main_left_joystick / 2 + main_right_joystick;
-
-
         // Sets and toggles the PTO solonoid state.
         if (controller_main.get_digital_new_press(DIGITAL_A)) {
             pto_enable = ! pto_enable;
@@ -54,14 +45,12 @@ void opcontrol(void)
         
         // FIXME: This is ugly.. 
         // Update the drive motors. The move method uses voltage control. Determines which motor_group to use. Its Ugly ik.
-        // when enable, PTO is connected to drive
+
 
         // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/include/pros/motors.hpp#L861C4-L861C4
         // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/src/devices/vdml_motors.cpp#L337
-        // drive_left_cata.move(700);
-        
-        
-        
+
+        // when enable, PTO is connected to drive
         if(pto_enable){
             drive_left_cata.move(left_power);
             drive_right_cata.move(right_power);
