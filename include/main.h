@@ -36,7 +36,7 @@
 
 #include "api.h"
 #include "autoSelect/selection.h"
-
+#include "globals.hpp"
 /**
  * You should add more #includes here
  */
