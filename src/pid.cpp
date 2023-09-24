@@ -1,6 +1,4 @@
 #include "pid.hpp"
-#include "main.h"
-
 // // // print hello world - youtube.com/@2915Z
 
 /// @brief Calculates the PID.
@@ -102,7 +100,7 @@ void PID::drive(PID &rot_obj, double target_distance, double kp, double ki, doub
     target = target_distance * tick_constant;
 
     // The current heading of the robot in degrees.
-    current_heading = imu_drive.get_heading();
+    inital_heading = imu_drive.get_heading();
 
     while(true) {
         // Gets the current sensor readings.
@@ -111,7 +109,7 @@ void PID::drive(PID &rot_obj, double target_distance, double kp, double ki, doub
         // Calculates the power needed to output to the motors using the distance.
         double main_power = calculate(target, sensor_reading);
         // Calculates the angle of the robot and makes sure the robot drives straight.
-        double imu_adjustment_power = rot_obj.calculate(current_heading, imu_drive.get_heading());
+        double imu_adjustment_power = rot_obj.calculate(inital_heading, imu_drive.get_heading());
 
         // Applys the power to the motors.
         drive_left_cata.move_voltage((main_power + imu_adjustment_power) * 1200 * direction);
