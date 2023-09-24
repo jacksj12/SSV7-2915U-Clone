@@ -40,6 +40,14 @@ void opcontrol(void)
         // Sets and toggles the PTO solonoid state.
         if (controller_main.get_digital_new_press(DIGITAL_A)) {
             pto_enable = ! pto_enable;
+
+            // Checks if the user clicked the button to connect the PTO to the cata.
+            // Will not send any power to the motor and it will coast. 
+            if (pto_enable) {
+                drive_left_cata.move_voltage(0);
+                drive_right_cata.move_voltage(0);
+            }
+            
             pto_cata.set_value(pto_enable);
         }
         
