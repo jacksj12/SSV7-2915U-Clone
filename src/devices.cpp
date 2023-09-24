@@ -23,7 +23,7 @@
 #define wing_right_port 'H'  // Right Pneumatic Wing Solonoid Port.
 #define pto_cata_port 'C'    // Cata -> Drive solonoid Port
 
-// #define imu_drive_port 7    // IMU port for drive.
+#define imu_drive_port 7    // IMU port for drive.
 
 // Controllers
 pros::Controller controller_main(CONTROLLER_MASTER);    // Master Controller.
@@ -52,4 +52,4 @@ pros::ADIDigitalOut wing_left(wing_left_port, true);   // Left Pneumatic Wing So
 pros::ADIDigitalOut wing_right(wing_right_port, false);   // Right Pneumatic Wing Solonoid.
 pros::ADIDigitalOut pto_cata(pto_cata_port, false);         // PTO 
 // IMU
-// pros::Imu imu_drive(imu_drive_port);
+pros::Imu imu_drive(imu_drive_port);
