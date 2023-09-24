@@ -4,7 +4,7 @@
 // // // print hello world - youtube.com/@2915Z
 
 /// @brief Calculates the PID.
-/// @param target The target where the robot needs to be.
+/// @param target Where the robot needs to be. Either target in ticks / steps OR angle in degrees.
 /// @param sensor_reading What the sensor is reading. Either the motor encoder or IMU.
 /// @return The power to be applied to the v5 Motors.
 double PID::calculate(double target, double sensor_reading) {
@@ -71,10 +71,10 @@ double PID::get_encoders(void) {
 /// @param inches The distance to the target - in inches.
 /// @return The distance to the target - in ticks.
 double PID::get_ticks(double inches) {
-    return 360 / (4.125 * M_PI);
+    return 360 / (4.125 * M_PI) * inches;
 }
 
-/// @brief The main PID controller to drive in a straight line, uses an IMU to adjust the power.
+/// @brief The feedback loop to drive in a straight line, uses an IMU to adjust the power.
 /// @param rot_obj A rotation object which is a instance of PID to check if the robot is driving straight.
 /// @param target_distance The target distance in inches.
 /// @param kp Proportional constant.
@@ -105,8 +105,11 @@ void PID::drive(PID &rot_obj, double target_distance, double kp, double ki, doub
     current_heading = imu_drive.get_heading();
 
     while(true) {
+        // Gets the current sensor readings.
+        sensor_reading = get_encoders();
+
         // Calculates the power needed to output to the motors using the distance.
-        double main_power = calculate(target, get_encoders());
+        double main_power = calculate(target, sensor_reading);
         // Calculates the angle of the robot and makes sure the robot drives straight.
         double imu_adjustment_power = rot_obj.calculate(current_heading, imu_drive.get_heading());
 
@@ -123,10 +126,10 @@ void PID::drive(PID &rot_obj, double target_distance, double kp, double ki, doub
         }
         pros::delay(10); // Always delayed by 10ms, in order to sync with the settle time thingy.
     }
+    reset();
 }
 
-
-/// @brief The main PID controller to turn. Uses an IMU.
+/// @brief The feedback loop to turn. Uses an IMU.
 /// @param angle The angle of the robot needs to turn to.
 /// @param kp Proportional constant.
 /// @param ki Integral Constant.
@@ -151,10 +154,10 @@ void PID::turn(double angle, double kp, double ki, double kd, double start_i, do
         direction = 1;
 
         // get imu current sensing.
-        target = imu_drive.get_heading();
+        sensor_reading = imu_drive.get_heading();
 
         // get speed output.
-        output = calculate(angle, target);
+        output = calculate(angle, sensor_reading);
         
         // determine direction to turn.
         if(fabs(error) < 180)
@@ -173,12 +176,67 @@ void PID::turn(double angle, double kp, double ki, double kd, double start_i, do
 
         pros::delay(10); // Always delayed by 10ms, in order to sync with the settle time thingy.
     }
+    reset();
 }
 
+/// @brief A feedback loop to attempt to ballance on the barrier without any input from the user.
+/// @param kp Proportional constant.
+/// @param ki Integral Constant.
+/// @param kd Derivative Constant.
+/// @param start_i the limiter for the intergral.
+/// @param settle_time The ammount of time the robot has to be in a settle zone to be considered fully settled.
+/// @param settle_error The ammount of displacement the robot has to be in to have the chance to be considered settled.
+/// @param timeout The ammount of time for a given run.
+void PID::ballance_pitch(double kp, double ki, double kd, double start_i, double settle_time, double settle_error, double timeout) {
+    // Set PID values.
+    this->kp = kp;
+    this->ki = ki;
+    this->kd = kd;
+    this->start_i = start_i;
+    this->settle_time = settle_time;
+    this->settle_time = settle_error;
+    this->timeout = timeout;
 
-// double get_encoders(void) {
-//     // Get averages for the encoders. 
-//     double left_encoders_averages = motor_drive_2.get_position() + motor_drive_3.get_position() / 2;
+    // The target pitch.
+    target = 0;
+    
+    // Connects the PTO to the drive. Helps with breaking.
+    pto_cata.set_value(true); 
+
+    // Drive towards the barrier.
+    drive_left_cata.move_voltage(100);
+    drive_right_cata.move_voltage(100);
+    pros::delay(150);
+    // Stop on the bar?
+    drive_left_cata.move_voltage(0);
+    drive_right_cata.move_voltage(0);
+
+    while (true)
+    {
+        // The current pitch from the IMU.
+        sensor_reading = imu_drive.get_pitch();
+
+        // the power output.
+        output = calculate(0,sensor_reading);
+
+        // Applys the power to the motors.
+        drive_left_cata.move_voltage (output * 1200); 
+        drive_right_cata.move_voltage(output * 1200);
+
+        // Checks the robot can be considered settled.
+        if(is_settled()) {
+            drive_left_cata.move_voltage(0);
+            drive_right_cata.move_voltage(0);
+            // Sets motors to hold position on the barrier. Care for the break type feedback loop, may increase delays in adjustments so it might be better to just use coast.
+            drive_left_cata.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
+            drive_right_cata.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
+
+            // Unessecary but 🤷‍♂️
+            reset();
+            return;
+        }
+    }
+}
 
 /// @brief Resets the values of lonely variables.
 void PID::reset(void) {
