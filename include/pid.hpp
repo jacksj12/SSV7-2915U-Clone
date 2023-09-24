@@ -1,3 +1,5 @@
+#include "main.h"
+
 #define M_PI		          3.14159265358979323846
 #define tick_constant     27.779771885130824
 
@@ -23,7 +25,7 @@ class PID{
         double time_waiting         = 0; // The total ammount of time settled in a position. 
         double time_spent_running   = 0; // The total ammount of time from start to the target.
 
-        int16_t current_heading     = 0; // The current heading of the robot. So we don't have to reset the imu every time we need to use it.
+        int16_t inital_heading     = 0; // The current heading of the robot. So we don't have to reset the imu every time we need to use it.
         int8_t direction            = 1; // The turning direction. Either 1 or -1.
         
         double get_encoders(void);
