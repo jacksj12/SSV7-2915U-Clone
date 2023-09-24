@@ -1,15 +1,6 @@
 #define M_PI		          3.14159265358979323846
 #define tick_constant     27.779771885130824
 
-// type safe sgn (sign) function
-// https://stackoverflow.com/a/4609795
-template <typename T> int sgn(T val) { 
-  return (T(0) < val) - (val < T(0)); 
-}
-
-
-
-
 
 /// @brief The PID class implements a Proportional-Integral-Derivative (PID) controller used for control systems.
 ///        It calculates the power to be applied to motors in order to achieve a desired target or maintain a specific orientation.
