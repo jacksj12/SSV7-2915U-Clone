@@ -23,6 +23,10 @@ void opcontrol(void)
 
     while (true)
     {
+        // FOR TESTING ONLY! Runs autonomous function.
+        if(controller_main.get_digital_new_press(DIGITAL_B)) autonomous();
+        
+        
         // Get Joysticks.
         int8_t main_left_joystick = controller_main.get_analog(ANALOG_LEFT_Y);        // AXIS 3 of controller_main.
         int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2;  // AXIS 1 of controller_main. Scalled cuz ruzi is a bad driver.
@@ -65,6 +69,12 @@ void opcontrol(void)
         }
         // PTO is conntected to cata
         else {
+            // While button is pressing rewind cata
+            if (controller_main.get_digital(DIGITAL_L2))
+            {
+                motor_drive_4.move_voltage(-12000);
+                motor_drive_8.move_voltage(-12000);
+            }
             drive_left.move(left_power);
             drive_right.move(right_power);
         }
