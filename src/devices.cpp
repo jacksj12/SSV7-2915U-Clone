@@ -32,14 +32,15 @@ pros::Controller controller_main(CONTROLLER_MASTER);    // Master Controller.
 pros::Motor motor_drive_1(motor_drive_1_port,   false);     // Front Left Drive Motor.
 pros::Motor motor_drive_2(motor_drive_2_port,   true );     // Middle front Left Drive Motor.
 pros::Motor motor_drive_3(motor_drive_3_port,   false);     // back Left Drive Motor.
-pros::Motor motor_drive_4(motor_drive_4_port,   false);      // Back PTO Left Drive Motor.
 
 // Right Drive Motors.
 pros::Motor motor_drive_5(motor_drive_5_port,   true );       //Front Right Drive Motor.
 pros::Motor motor_drive_6(motor_drive_6_port,   false);       // Middle 1 Right Drive Motor.
 pros::Motor motor_drive_7(motor_drive_7_port,   true );       // Middle 2 Right Drive Motor.
-pros::Motor motor_drive_8(motor_drive_8_port,   true );       // Back PTO Right Drive Motor.
 
+// PTO Motors
+pros::Motor motor_drive_4(motor_drive_4_port,   false);       // Back PTO Left Drive Motor.
+pros::Motor motor_drive_8(motor_drive_8_port,   true );       // Back PTO Right Drive Motor.
 
 // Drive Motor Groups.
 pros::Motor_Group drive_left_cata   ({motor_drive_1, motor_drive_2, motor_drive_3, motor_drive_4});     // Left Drive Motor Group with cata motors.
