@@ -42,7 +42,7 @@ void opcontrol(void)
         int16_t right_power = main_left_joystick - main_right_joystick;
 
         // Sets and toggles the PTO solonoid state.
-        if (controller_main.get_digital_new_press(DIGITAL_A)) {
+        if (controller_main.get_digital_new_press(DIGITAL_L2)) {
             pto_enable = ! pto_enable;
 
             // Checks if the user clicked the button to connect the PTO to the cata.
@@ -70,7 +70,7 @@ void opcontrol(void)
         // PTO is conntected to cata
         else {
             // While button is pressing rewind cata
-            if (controller_main.get_digital(DIGITAL_L2))
+            if (controller_main.get_digital(DIGITAL_R1))
             {
                 motor_drive_4.move_voltage(-12000);
                 motor_drive_8.move_voltage(-12000);
