@@ -85,7 +85,7 @@ void init(int hue, int default_auton, const char **autons){
 	tabview = lv_tabview_create(lv_scr_act(), NULL);
 
 	// add 3 tabs (the tabs are page (lv_page) and can be scrolled
-	lv_obj_t *redTab = lv_tabview_add_tab(tabview, "Alliance Goal");
+	lv_obj_t *redTab = lv_tabview_add_tab(tabview, "Allaince Goal");
 	lv_obj_t *blueTab = lv_tabview_add_tab(tabview, "Far Goal");
 	lv_obj_t *skillsTab = lv_tabview_add_tab(tabview, "Skills");
 	

@@ -120,11 +120,11 @@ void PID::drive(PID &rot_obj, double target_distance, double kp, double ki, doub
             // Stop the robot.
             drive_left_cata.move_voltage(0);
             drive_right_cata.move_voltage(0);
+            reset();
             return;
         }
         pros::delay(10); // Always delayed by 10ms, in order to sync with the settle time thingy.
     }
-    reset();
 }
 
 /// @brief The feedback loop to turn. Uses an IMU.
@@ -169,12 +169,12 @@ void PID::turn(double angle, double kp, double ki, double kd, double start_i, do
         if(is_settled()) {
             drive_left_cata.move_voltage(0);
             drive_right_cata.move_voltage(0);
+            reset();
             return;
         }
 
         pros::delay(10); // Always delayed by 10ms, in order to sync with the settle time thingy.
     }
-    reset();
 }
 
 /// @brief A feedback loop to attempt to ballance on the barrier without any input from the user.
@@ -198,13 +198,15 @@ void PID::ballance_pitch(double kp, double ki, double kd, double start_i, double
     // The target pitch.
     target = 0;
     
-    // Connects the PTO to the drive. Helps with breaking.
+    // Connects the PTO to the drive.
     pto_cata.set_value(true); 
 
     // Drive towards the barrier.
-    drive_left_cata.move_voltage(100);
-    drive_right_cata.move_voltage(100);
-    pros::delay(150);
+    while (imu_drive.get_pitch() < 2) {
+        drive_left_cata.move_voltage(200);
+        drive_right_cata.move_voltage(200);
+        pros::delay(10);
+    }
     // Stop on the bar?
     drive_left_cata.move_voltage(0);
     drive_right_cata.move_voltage(0);
@@ -233,6 +235,8 @@ void PID::ballance_pitch(double kp, double ki, double kd, double start_i, double
             reset();
             return;
         }
+
+        pros::delay(10);
     }
 }
 

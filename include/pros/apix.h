@@ -34,7 +34,7 @@
 #include "pros/serial.hpp"
 namespace pros::c {
 extern "C" {
-	v5_device_e_t pros::c::registry_get_plugged_type(uint8_t port);
+	
 
 #endif
 

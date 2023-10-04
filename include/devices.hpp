@@ -43,3 +43,5 @@ extern pros::ADIDigitalOut wing_right;
 extern pros::ADIDigitalOut pto_cata;
 
 extern pros::Imu imu_drive;
+
+extern int all_devices_ports;

@@ -1,5 +1,6 @@
 #include "main.h"
 #include "opcontrol.hpp"
+#include "pid.hpp"
 
 // https://pros.cs.purdue.edu/v5/api/cpp/index.html
 // https://github.com/purduesigbots/pros-docs/tree/e2b268679b89ea566b35a43bcf2e4f8b3248656b/v5/api/cpp
@@ -20,28 +21,15 @@
 
 void opcontrol(void)
 {
+    u_int16_t current_time = 0; // The current time of the opcontrol perioid.
 
     while (true)
     {
         // FOR TESTING ONLY! Runs autonomous function.
         if(controller_main.get_digital_new_press(DIGITAL_B)) autonomous();
-        
-        
-        // Get Joysticks.
-        int8_t main_left_joystick = controller_main.get_analog(ANALOG_LEFT_Y);        // AXIS 3 of controller_main.
-        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2;  // AXIS 1 of controller_main. Scalled cuz ruzi is a bad driver.
-
-        // Apply deadzones to Joysticks.
-        main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
-        main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
 
 
-        // TODO: Try joystick curving?
-        // Calculates the power for the joysticks
-        int16_t left_power = main_left_joystick + main_right_joystick;
-        int16_t right_power = main_left_joystick - main_right_joystick;
-
-        // Sets and toggles the PTO solonoid state.
+            // Sets and toggles the PTO solonoid state.
         if (controller_main.get_digital_new_press(DIGITAL_L2)) {
             pto_enable = ! pto_enable;
 
@@ -54,44 +42,40 @@ void opcontrol(void)
             
             pto_cata.set_value(pto_enable);
         }
-        
-        // FIXME: This is ugly.. 
-        // Update the drive motors. The move method uses voltage control. Determines which motor_group to use. Its Ugly ik.
 
 
-        // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/include/pros/motors.hpp#L861C4-L861C4
-        // https://github.com/purduesigbots/pros/blob/1e7513d4f110d2eac625b6300dbbb8c086ab6c0c/src/devices/vdml_motors.cpp#L337
+        // Get Joysticks.
+        int8_t main_left_joystick = controller_main.get_analog(ANALOG_LEFT_Y);        // AXIS 3 of controller_main.
+        int8_t main_right_joystick = controller_main.get_analog(ANALOG_RIGHT_X) / 2;  // AXIS 1 of controller_main. Scalled cuz ruzi is a bad driver.
 
-        // when enable, PTO is connected to drive
-        if(pto_enable){
-            drive_left_cata.move(left_power);
-            drive_right_cata.move(right_power);
-        }
-        // PTO is conntected to cata
-        else {
-            // While button is pressing rewind cata
-            if (controller_main.get_digital(DIGITAL_R1))
-            {
-                motor_drive_4.move_voltage(-12000);
-                motor_drive_8.move_voltage(-12000);
+        // Apply deadzones to Joysticks.
+        main_left_joystick = apply_deadzone(main_left_joystick, VERTICAL_DEADZONE);
+        main_right_joystick = apply_deadzone(main_right_joystick, HORIZONTAL_DEADZONE);
+
+        // TODO: Try joystick curving?
+        int16_t left_power = main_left_joystick + main_right_joystick;  // Calculates the power from the joysticks which is applied to the left side of the drive.
+        int16_t right_power = main_left_joystick - main_right_joystick; // Calculates the power for the joysticks  which is applied to the right side of the drive.
+
+        // Set the PTO and Drive motors power!
+        move_motors(left_power, right_power); 
+
+
+        // Toggle Wings.
+        wing_left_toggle    = toggle_wings(DIGITAL_L1, wing_left_toggle, wing_left);        // Check and toggles the Left Wing.
+        wing_right_toggle   = toggle_wings(DIGITAL_R1, wing_right_toggle, wing_right);      // Check and toggles the Right Wing.
+
+
+        // Increaments the time counter by 10ms.
+        current_time += 10;
+
+        // Checks if the opcontrol time is within the endgame time.
+        if (current_time >= 7500) {
+            if (controller_main.get_digital_new_press(DIGITAL_B)) {
+                PID robot;
+
+                robot.ballance_pitch(0.1,0,0,0,0,0,0);
             }
-            drive_left.move(left_power);
-            drive_right.move(right_power);
         }
-
- 
-        // Wings Toggle.
-        if (controller_main.get_digital_new_press(DIGITAL_L1))
-        {
-            wing_left_toggle = !wing_left_toggle;
-            wing_left.set_value(wing_left_toggle);
-        }
-        if (controller_main.get_digital_new_press(DIGITAL_R1))
-        {
-            wing_right_toggle = !wing_right_toggle;
-            wing_right.set_value(wing_right_toggle);
-        }
-
         pros::delay(10); // 10 ms delay for user based interactions
     }
 }

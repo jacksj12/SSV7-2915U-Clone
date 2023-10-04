@@ -35,8 +35,10 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
+#include "pros/apix.h"
 #include "autoSelect/selection.h"
-#include "globals.hpp"
+
+
 /**
  * You should add more #includes here
  */
@@ -74,6 +76,7 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 #include "devices.hpp"
+#include "globals.hpp"
 #include <iostream>
 #endif
 
