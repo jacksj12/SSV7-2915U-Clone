@@ -12,5 +12,5 @@ void initialize(void){
     pros::delay(500); // Stop the user from doing anything while legacy ports configure.
     
     // init auton selector.
-    selector::init();
+    // selector::init();
 }
