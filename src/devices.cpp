@@ -56,15 +56,15 @@ pros::ADIDigitalOut pto_cata(pto_cata_port, false);         // PTO
 pros::Imu imu_drive(imu_drive_port);
 
 // All V5 Devices connected goes here! 
-int all_devices_ports [9] = 
-    {
-    motor_drive_1_port,
-    motor_drive_2_port,
-    motor_drive_3_port,
-    motor_drive_5_port,
-    motor_drive_6_port,
-    motor_drive_7_port,
-    motor_drive_4_port,
-    motor_drive_8_port,
-    imu_drive_port
-    };
+// int all_devices_ports [9] = 
+//     {
+//     motor_drive_1_port,
+//     motor_drive_2_port,
+//     motor_drive_3_port,
+//     motor_drive_5_port,
+//     motor_drive_6_port,
+//     motor_drive_7_port,
+//     motor_drive_4_port,
+//     motor_drive_8_port,
+//     imu_drive_port
+//     };

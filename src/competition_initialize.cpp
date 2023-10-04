@@ -15,10 +15,10 @@ void competition_initialize()
 {
 
     
-    // Gets the total ammount of motors declared.
-    for (int i = 0; i < 9; i++) {
-        pros::c::registry_get_plugged_type(all_devices_ports[i]);
-    }
+    // // Gets the total ammount of motors declared.
+    // for (int i = 0; i < 9; i++) {
+    //     pros::c::registry_get_plugged_type(all_devices_ports[i]);
+    // }
     
     // https://pros.cs.purdue.edu/v5/api/cpp/motors.html#pros-motor-flag-e-t
 
